@@ -7,6 +7,7 @@ import conexion.conex;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 
 public class login {
 
@@ -37,13 +38,30 @@ public class login {
                 JOptionPane.showMessageDialog(null, "Please fill all the fields");
             }else{
                 //buscamos coincidencias en la base de datos para iniciar sesión
-                try{
-                    String selectUser = "SELECT * FROM users WHERE username = '" + username + "'";
-                    if (selectUser.isEmpty())
+                try {
+
+                    String query = "SELECT * FROM user WHERE username = ? AND password = ?";
+                    PreparedStatement ps = (PreparedStatement) cn.prepareStatement(query);
+
+                    ps.setString(1, username);
+                    ps.setString(2, password);
+                    ResultSet selectUser = ps.executeQuery();
+                    
+                    if (selectUser.next()) {
+                        String resultado = selectUser.getString("username");
+                        JOptionPane.showMessageDialog(null, "Bienvenido: " + resultado);
+                    }else {
+                        JOptionPane.showMessageDialog(null, "Username or password are incorrect");
+
+                        
+                    }
+                    
+                    cleanForms();
+                    cn.close();
 
                         //mirar como gestionar error al seleccionar usuario
                 }catch(Exception exception){
-
+                    JOptionPane.showMessageDialog(null,"An error occurred"+exception);
                 }
             }
             }
@@ -64,8 +82,9 @@ public class login {
                     String insertDataRegister = "INSERT INTO user(username, email, password) VALUES ('"+username+"','"+email+"','"+password+"')";
                     PreparedStatement ps = (PreparedStatement) cn.prepareStatement(insertDataRegister);
                     ps.executeUpdate();
-                        cleanRegisterForm();
+                        cleanForms();
                     JOptionPane.showMessageDialog(null, "User registered successfully");
+                    cn.close();
                 }catch(Exception exception){
                     JOptionPane.showMessageDialog(null,"An error occurred"+exception);
                 }
@@ -82,7 +101,7 @@ public class login {
         frame.setVisible(true);
     }
 
-    void cleanRegisterForm() {
+    void cleanForms() {
         txtUserRegister.setText("");
         txtEmailRegister.setText("");
         txtPassRegister.setText("");
