@@ -27,7 +27,7 @@ public class login {
 
     public login(){
 
-        loginButton.addActionListener(new ActionListener() {
+        /*loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String username=txtUserLogin.getText();
@@ -65,7 +65,7 @@ public class login {
                 }
             }
             }
-        });
+        });*/
 
         registerButton.addActionListener(new ActionListener() {
             @Override
