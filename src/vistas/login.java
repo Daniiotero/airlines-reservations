@@ -15,7 +15,7 @@ public class login {
     Connection cn= conex.ConnectDB();
 
     private JTabbedPane tabbedPane1;
-    private JPanel panel1;
+    public JPanel panel1;
     private JTextField txtUserLogin;
     private JPasswordField txtPassLogin;
     private JPanel Register;
@@ -27,45 +27,45 @@ public class login {
 
     public login(){
 
-        /*loginButton.addActionListener(new ActionListener() {
+        loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String username=txtUserLogin.getText();
                 String password=txtPassLogin.getText();
 
-            //COMPROBACIONES
-            if (username.isEmpty() || password.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Please fill all the fields");
-            }else{
-                //buscamos coincidencias en la base de datos para iniciar sesión
-                try {
+                //COMPROBACIONES
+                if (username.isEmpty() || password.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please fill all the fields");
+                }else{
+                    //buscamos coincidencias en la base de datos para iniciar sesión
+                    try {
 
-                    String query = "SELECT * FROM user WHERE username = ? AND password = ?";
-                    PreparedStatement ps = (PreparedStatement) cn.prepareStatement(query);
+                        String query = "SELECT * FROM user WHERE username = ? AND password = ?";
+                        PreparedStatement ps = (PreparedStatement) cn.prepareStatement(query);
 
-                    ps.setString(1, username);
-                    ps.setString(2, password);
-                    ResultSet selectUser = ps.executeQuery();
-                    
-                    if (selectUser.next()) {
-                        String resultado = selectUser.getString("username");
-                        JOptionPane.showMessageDialog(null, "Bienvenido: " + resultado);
-                    }else {
-                        JOptionPane.showMessageDialog(null, "Username or password are incorrect");
+                        ps.setString(1, username);
+                        ps.setString(2, password);
+                        ResultSet selectUser = ps.executeQuery();
 
-                        
-                    }
-                    
-                    cleanForms();
-                    cn.close();
+                        if (selectUser.next()) {
+                            String resultado = selectUser.getString("username");
+                            JOptionPane.showMessageDialog(null, "Bienvenido: " + resultado);
+                        }else {
+                            JOptionPane.showMessageDialog(null, "Username or password are incorrect");
+
+
+                        }
+
+                        cleanForms();
+                        cn.close();
 
                         //mirar como gestionar error al seleccionar usuario
-                }catch(Exception exception){
-                    JOptionPane.showMessageDialog(null,"An error occurred"+exception);
+                    }catch(Exception exception){
+                        JOptionPane.showMessageDialog(null,"An error occurred"+exception);
+                    }
                 }
             }
-            }
-        });*/
+        });
 
         registerButton.addActionListener(new ActionListener() {
             @Override
