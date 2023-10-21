@@ -9,23 +9,28 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 
-public class login {
+public class Menu {
 
     conex con = new conex();
     Connection cn= conex.ConnectDB();
 
-    private JTabbedPane tabbedPane1;
+    private JTabbedPane authTabbedPanel;
     public JPanel panel1;
     private JTextField txtUserLogin;
     private JPasswordField txtPassLogin;
-    private JPanel Register;
+    private JPanel registerPanel;
     private JTextField txtUserRegister;
     private JTextField txtEmailRegister;
     private JPasswordField txtPassRegister;
     private JButton registerButton;
     private JButton loginButton;
+    private JTabbedPane tabbedPane1;
+    private JPanel loginPanel;
+    private JTabbedPane tripsTabbedPane;
+    private JPanel insertTrip;
+    private JPanel listTrip;
 
-    public login(){
+    public Menu(){
 
         loginButton.addActionListener(new ActionListener() {
             @Override
@@ -57,7 +62,7 @@ public class login {
                         }
 
                         cleanForms();
-                        cn.close();
+
 
                         //mirar como gestionar error al seleccionar usuario
                     }catch(Exception exception){
@@ -84,7 +89,7 @@ public class login {
                     ps.executeUpdate();
                         cleanForms();
                     JOptionPane.showMessageDialog(null, "User registered successfully");
-                    cn.close();
+
                 }catch(Exception exception){
                     JOptionPane.showMessageDialog(null,"An error occurred"+exception);
                 }
@@ -95,7 +100,7 @@ public class login {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("login");
-        frame.setContentPane(new login().panel1);
+        frame.setContentPane(new Menu().panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
